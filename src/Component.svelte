@@ -20,21 +20,22 @@
 
   const { styleable } = getContext("sdk")
   const component = getContext("component")
-
-  $: disabled = disabled ? "disabled" : ""
-
-</script>
-
-<div class="buttonplus">
-  <button use:styleable={{
+  component.styles ??= {}
+  component.styles.normal = {
+    ...component.styles.normal,
     '--bgColour': bgColour,
     '--bgHover': bgHover,
     '--txtColour': txtColour,
     '--txtHover': txtHover,
     '--brdColour': brdColour,
-    '--brdHover': brdHover,
-    ...$component.styles
-  }} on:click={btnClicked} class="
+    '--brdHover': brdHover
+  }
+  $: disabled = disabled ? "disabled" : ""
+
+</script>
+
+<div class="buttonplus">
+  <button use:styleable={$component.styles} on:click={btnClicked} class="
             spectrum-Button spectrum-Button--size{size}
             spectrum-Button--{variant}
             {quiet === true ? ' spectrum-Button--quiet' : ''}
