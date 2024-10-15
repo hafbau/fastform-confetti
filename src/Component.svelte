@@ -25,8 +25,8 @@
 
 </script>
 
-<div use:styleable={$component.styles} class="buttonplus">
-  <button on:click={btnClicked} class="
+<div class="buttonplus">
+  <button use:styleable={$component.styles} on:click={btnClicked} class="
             spectrum-Button spectrum-Button--size{size}
             spectrum-Button--{variant}
             {quiet === true ? ' spectrum-Button--quiet' : ''}
