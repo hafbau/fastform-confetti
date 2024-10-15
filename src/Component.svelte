@@ -21,15 +21,12 @@
   const { styleable } = getContext("sdk")
   const component = getContext("component")
   component.styles ??= {}
-  component.styles.normal = {
-    ...component.styles.normal,
-    '--bgColour': bgColour,
-    '--bgHover': bgHover,
-    '--txtColour': txtColour,
-    '--txtHover': txtHover,
-    '--brdColour': brdColour,
-    '--brdHover': brdHover
-  }
+  component.styles.custom = `
+    --bgColour:${bgColour}; --bgHover:${bgHover};
+    --txtColour:${txtColour}; --txtHover:${txtHover};
+    --brdColour:${brdColour}; --brdHover:${brdHover};
+    ${component.styles.custom ?? ""}
+  `
   $: disabled = disabled ? "disabled" : ""
 
 </script>
