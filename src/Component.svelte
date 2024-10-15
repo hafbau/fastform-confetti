@@ -26,16 +26,19 @@
 </script>
 
 <div class="buttonplus">
-  <button use:styleable={$component.styles} on:click={btnClicked} class="
+  <button use:styleable={{
+    '--bgColour': bgColour,
+    '--bgHover': bgHover,
+    '--txtColour': txtColour,
+    '--txtHover': txtHover,
+    '--brdColour': brdColour,
+    '--brdHover': brdHover,
+    ...$component.styles
+  }} on:click={btnClicked} class="
             spectrum-Button spectrum-Button--size{size}
             spectrum-Button--{variant}
             {quiet === true ? ' spectrum-Button--quiet' : ''}
-          " {disabled}
-          style="
-            --bgColour:{bgColour}; --bgHover:{bgHover};
-            --txtColour:{txtColour}; --txtHover:{txtHover};
-            --brdColour:{brdColour}; --brdHover:{brdHover};
-          ">
+          " {disabled}>
     {#if customContents}
       <slot />
     {:else}
