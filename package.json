@@ -12,8 +12,8 @@
   },
   "dependencies": {
     "@crownframework/svelte-error-boundary": "^1.0.3",
-    "svelte": "^3.49.0",
-    "canvas-confetti": "^1.9.3"
+    "canvas-confetti": "^1.9.3",
+    "svelte": "^3.49.0"
   },
   "devDependencies": {
     "@budibase/backend-core": "^2.0.13",
