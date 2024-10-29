@@ -1,9 +1,9 @@
 {
-  "name": "bb-buttonplus",
-  "version": "1.0.3",
-  "description": "A Extended version of a button",
+  "name": "ff-confetti",
+  "version": "0.0.1",
+  "description": "A confetti component",
   "license": "MIT",
-  "author": "Matthew Strachan",
+  "author": "Hafiz Suara",
   "svelte": "index.js",
   "module": "dist/plugin.min.js",
   "scripts": {
@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@crownframework/svelte-error-boundary": "^1.0.3",
-    "svelte": "^3.49.0"
+    "svelte": "^3.49.0",
+    "canvas-confetti": "^1.9.3"
   },
   "devDependencies": {
     "@budibase/backend-core": "^2.0.13",

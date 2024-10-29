@@ -1,60 +1,45 @@
 <script>
-  import { getContext } from "svelte"
+  import { getContext, onMount } from "svelte"
+  import confetti from "canvas-confetti"
 
-  export let customContents
-  export let text
-
-  export let variant
-  export let size
-  export let quiet
-  export let disabled
-
-  export let btnClicked
-
-  export let bgColour
-  export let bgHover
-  export let txtColour
-  export let txtHover
-  export let brdColour
-  export let brdHover
+  export let onDone
+  export let start
 
   const { styleable } = getContext("sdk")
   const component = getContext("component")
-  component.styles ??= {}
-  component.styles.custom = `
-    --bgColour:${bgColour}; --bgHover:${bgHover};
-    --txtColour:${txtColour}; --txtHover:${txtHover};
-    --brdColour:${brdColour}; --brdHover:${brdHover};
-    ${component.styles.custom ?? ""}
-  `
-  $: disabled = disabled ? "disabled" : ""
+  const duration = 7 * 1000;
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  onMount(async () => {
+    if (start) {
+      await startConfetti()
+      onDone?.()
+    }
+  })
+
+  async function startConfetti() {
+    const interval = setInterval(function() {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        return clearInterval(interval);
+      }
+
+      const particleCount = 100 * (timeLeft / duration);
+      // since particles fall down, start a bit higher than random
+      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.5), y: Math.random() - 0.2 } });
+      confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.5, 0.9), y: Math.random() - 0.2 } });
+    }, 250);
+  }
 
 </script>
 
-<div class="buttonplus">
-  <button use:styleable={$component.styles} on:click={btnClicked} class="
-            spectrum-Button spectrum-Button--size{size}
-            spectrum-Button--{variant}
-            {quiet === true ? ' spectrum-Button--quiet' : ''}
-          " {disabled}>
-    {#if customContents}
-      <slot />
-    {:else}
-      {text}
-    {/if}
-  </button>
+<div use:styleable={$component.styles}>
+  <slot />
 </div>
 
-<style>
-  .spectrum-Button--custom {
-    background-color: var(--bgColour, black);
-    color: var(--txtColour, white);
-    border-color: var(--brdColour, white);
-  }
-
-  .spectrum-Button--custom:hover {
-    background-color: var(--bgHover, black);
-    color: var(--txtHover, white);
-    border-color: var(--brdHover, white);
-  }
-</style>
+<style></style>
